@@ -6,6 +6,7 @@ import Formtwo from './Components/Formtwo';
 import { useState } from 'react';
 import Outputthree from './Components/Outputthree';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Panelthree from './Components/Panelthree';
 
 function App() {
   const [curr12, setCurr12] = useState(true)
@@ -47,7 +48,8 @@ function App() {
       <h2 style={{ textAlign: "center", marginTop: "-0.5rem", color: "white", marginBottom:"-2rem" }}>Created by Praneet Debnath</h2>
       <Formtwo curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult}/>
       <div style={{ marginTop: "2rem"}}>
-        <Panel curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} />
+        {/* <Panel curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} /> */}
+        <Panelthree curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} />
       </div>
       <div style={{ marginLeft: "22rem", marginTop: "1rem" }}>
         {/* {curr12===1 ? <Outputthree curr1={curr1} curr2={curr2} finalResult={finalResult} /> : <h1></h1>} */}
