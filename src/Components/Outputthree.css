@@ -1,0 +1,33 @@
+.output-container {
+    text-align: center;
+    /* Center align the contents */
+    opacity: 0;
+    /* Initially set opacity to 0 for the fade-in effect */
+    animation: fadeInAnimation 1s ease-in-out forwards;
+    /* Apply fade-in animation */
+}
+
+.output-text {
+    display: block;
+    overflow: auto;
+    /* Ensure each Typography component is displayed as a block element */
+    font-size: 2rem;
+    /* Default font size */
+}
+
+/* Media queries for smaller screens... */
+
+/* CSS animation keyframes for fade-in effect */
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+        /* Start from opacity 0 */
+    }
+
+    to {
+        opacity: 1;
+        /* End at opacity 1 */
+    }
+}
+
+/* Additional media queries and styles... */

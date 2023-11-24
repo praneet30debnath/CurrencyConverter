@@ -1,12 +1,22 @@
+.App::-webkit-scrollbar {
+  width: 8px;
+}
+
+.App::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
 body {
   margin: 0;
   height: 100vh;
   font-weight: 100;
   background: radial-gradient(#192E47, #030617);
-  -webkit-overflow-Y: hidden;
-  -moz-overflow-Y: hidden;
-  -o-overflow-Y: hidden;
-  overflow-y: hidden;
+  -webkit-overflow-Y: auto;
+  -moz-overflow-Y: auto;
+  -o-overflow-Y: auto;
+  overflow-y: auto;
+  scrollbar-width: thin;
   -webkit-animation: fadeIn 1 1s ease-out;
   -moz-animation: fadeIn 1 1s ease-out;
   -o-animation: fadeIn 1 1s ease-out;
@@ -509,4 +519,16 @@ img {
   -moz-transform: translate(95vw, 90vh);
   transform: translate(95vw, 90vh);
   transform: translate(95vw, 90vh);
+}
+
+
+@media screen and (max-width: 768px) {
+  /* Styles for smaller screens */
+  .panel-three {
+    /* Adjust styles for smaller screens */
+    /* For example: */
+    width: 100%;
+    padding: 20px;
+    /* ... */
+  }
 }

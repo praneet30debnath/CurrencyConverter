@@ -39,14 +39,14 @@ const Panel = (props) => {
     const [ratesFinal, setRatesFinal] = React.useState({})
 
     React.useEffect(() => {
-        async function fetchMoviesJSON() {
+        async function fetchCurrencyRates() {
             const response = await fetch('http://data.fixer.io/api/latest?access_key=595c3cee1b06b2faffe39a0a0b929803');
-            const movies = await response.json();
-            const rates = movies.rates;
+            const currencies = await response.json();
+            const rates = currencies.rates;
             setRatesFinal(rates);
             return rates;
         }
-        fetchMoviesJSON();
+        fetchCurrencyRates();
     }, []);
 
     const showData = () => {

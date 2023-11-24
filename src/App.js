@@ -1,4 +1,5 @@
 import './App.css';
+import * as React from 'react';
 import mainLogo from './logoo.png';
 import mainText from './text.png';
 import Panel from './Components/Panel';
@@ -21,7 +22,9 @@ function App() {
     }
     else if (curr1 !== '' && curr2 !== '' && finalResult !== 0) {
       return (
-        <Outputthree curr1={curr1} curr2={curr2} finalResult={finalResult} />
+        <div style={{ paddingTop: '2.2rem'}}> {/* Adding top padding */}
+          <Outputthree curr1={curr1} curr2={curr2} finalResult={finalResult} />
+        </div>
       )
     }
     else {
@@ -32,6 +35,34 @@ function App() {
       )
     }
   }
+
+  function capitalizeEveryWord(str) {
+    return str.replace(/\b\w/g, function (char) {
+      return char.toUpperCase();
+    });
+  }
+
+  const [ratesFinal, setRatesFinal] = React.useState({})
+
+  React.useEffect(() => {
+    async function fetchMoviesJSON() {
+      const response = await fetch('https://api.getgeoapi.com/v2/currency/convert?api_key=c4e54d39de126ff57f2a46d0ef3a78739fee0a61');
+      //const response = await fetch('http://data.fixer.io/api/latest?access_key=595c3cee1b06b2faffe39a0a0b929803');
+      const currency = await response.json();
+      const state = currency.rates;
+      const data = state
+      const a = []
+      const b = []
+      for (const [key, value] of Object.entries(data)) {
+        a.push(capitalizeEveryWord(value.currency_name) + " (" + key + ")")
+        b.push(parseFloat(value.rate))
+      }
+      let abc = {}
+      a.forEach((k, i) => { abc[k] = b[i] })
+      setRatesFinal(abc);
+    }
+    fetchMoviesJSON();
+  }, []);
 
   const [curr1, setCurr1] = useState('')
   const [curr2, setCurr2] = useState('')
@@ -45,14 +76,12 @@ function App() {
       </div>
       <h1 style={{ textAlign: "center", color: "white" }}>Currency Converter</h1>
       <h2 style={{ textAlign: "center", marginTop: "-0.5rem", color: "white" }}>Check live foreign currency exchange rates</h2>
-      <h2 style={{ textAlign: "center", marginTop: "-0.5rem", color: "white", marginBottom:"-2rem" }}>Created by Praneet Debnath</h2>
-      <Formtwo curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult}/>
-      <div style={{ marginTop: "2rem"}}>
-        {/* <Panel curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} /> */}
-        <Panelthree curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} />
+      <h2 style={{ textAlign: "center", marginTop: "-0.5rem", color: "white", marginBottom: "-2rem" }}>Created by Praneet Debnath</h2>
+      <Formtwo curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} ratesFinal={ratesFinal} />
+      <div style={{ marginTop: "2rem" }}>
+        <Panelthree curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} ratesFinal={ratesFinal} />
       </div>
-      <div style={{ marginLeft: "22rem", marginTop: "1rem" }}>
-        {/* {curr12===1 ? <Outputthree curr1={curr1} curr2={curr2} finalResult={finalResult} /> : <h1></h1>} */}
+      <div>
         {renderThing()}
       </div>
     </div>
