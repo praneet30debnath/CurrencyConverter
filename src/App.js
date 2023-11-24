@@ -2,12 +2,10 @@ import './App.css';
 import * as React from 'react';
 import mainLogo from './logoo.png';
 import mainText from './text.png';
-import Panel from './Components/Panel';
-import Formtwo from './Components/Formtwo';
+import Form from './Components/Form';
 import { useState } from 'react';
-import Outputthree from './Components/Outputthree';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import Panelthree from './Components/Panelthree';
+import Output from './Components/Output';
+import Panel from './Components/Panel';
 
 function App() {
   const [curr12, setCurr12] = useState(true)
@@ -23,7 +21,7 @@ function App() {
     else if (curr1 !== '' && curr2 !== '' && finalResult !== 0) {
       return (
         <div style={{ paddingTop: '2.2rem'}}> {/* Adding top padding */}
-          <Outputthree curr1={curr1} curr2={curr2} finalResult={finalResult} />
+          <Output curr1={curr1} curr2={curr2} finalResult={finalResult} />
         </div>
       )
     }
@@ -77,9 +75,9 @@ function App() {
       <h1 style={{ textAlign: "center", color: "white" }}>Currency Converter</h1>
       <h2 style={{ textAlign: "center", marginTop: "-0.5rem", color: "white" }}>Check live foreign currency exchange rates</h2>
       <h2 style={{ textAlign: "center", marginTop: "-0.5rem", color: "white", marginBottom: "-2rem" }}>Created by Praneet Debnath</h2>
-      <Formtwo curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} ratesFinal={ratesFinal} />
+      <Form curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} ratesFinal={ratesFinal} />
       <div style={{ marginTop: "2rem" }}>
-        <Panelthree curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} ratesFinal={ratesFinal} />
+        <Panel curr1={curr1} curr2={curr2} setCurr1={setCurr1} setCurr2={setCurr2} finalResult={finalResult} setFinalResult={setFinalResult} curr12={curr12} setCurr12={setCurr12} ratesFinal={ratesFinal} />
       </div>
       <div>
         {renderThing()}

@@ -41,7 +41,7 @@ const CustomTextfield = styled(TextField, {})({
 });
 
 
-const Formtwo = (props) => {
+const Form = (props) => {
 
     console.log(props.ratesFinal)
 
@@ -137,4 +137,4 @@ const Formtwo = (props) => {
     )
 }
 
-export default Formtwo
+export default Form

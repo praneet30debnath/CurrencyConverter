@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
-import './Outputthree.css'; // Import a separate CSS file for styling
+import './Output.css'; // Import a separate CSS file for styling
 
-const Outputthree = (props) => {
+const Output = (props) => {
     return (
         <div className="output-container">
             <Typography variant="h4" gutterBottom component="div" className="output-text fade-in" style={{ color: "white" }}>
@@ -14,4 +14,4 @@ const Outputthree = (props) => {
     );
 };
 
-export default Outputthree;
+export default Output;
