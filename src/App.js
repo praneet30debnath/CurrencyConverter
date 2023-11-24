@@ -20,7 +20,7 @@ function App() {
     }
     else if (curr1 !== '' && curr2 !== '' && finalResult !== 0) {
       return (
-        <div style={{ paddingTop: '2.2rem'}}> {/* Adding top padding */}
+        <div style={{ paddingTop: '2.2rem' }}> {/* Adding top padding */}
           <Output curr1={curr1} curr2={curr2} finalResult={finalResult} />
         </div>
       )
@@ -43,12 +43,11 @@ function App() {
   const [ratesFinal, setRatesFinal] = React.useState({})
 
   React.useEffect(() => {
-    async function fetchMoviesJSON() {
+    async function fetchCurrencyRates() {
       const response = await fetch('https://api.getgeoapi.com/v2/currency/convert?api_key=c4e54d39de126ff57f2a46d0ef3a78739fee0a61');
-      //const response = await fetch('http://data.fixer.io/api/latest?access_key=595c3cee1b06b2faffe39a0a0b929803');
       const currency = await response.json();
-      const state = currency.rates;
-      const data = state
+      const rates = currency.rates;
+      const data = rates
       const a = []
       const b = []
       for (const [key, value] of Object.entries(data)) {
@@ -59,7 +58,7 @@ function App() {
       a.forEach((k, i) => { abc[k] = b[i] })
       setRatesFinal(abc);
     }
-    fetchMoviesJSON();
+    fetchCurrencyRates();
   }, []);
 
   const [curr1, setCurr1] = useState('')
