@@ -1,154 +1,194 @@
-import { React } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
-import MenuItem from '@mui/material/MenuItem';
+import { React, useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
 
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete from "@mui/material/Autocomplete";
 
-
-const CustomTextfield = styled(TextField, {})({
-    input: "white",
-    icon: {
-        fill: "white",
+const CustomTextfield = styled(TextField)({
+  "& .MuiSvgIcon-root": {
+    color: "white",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "white",
     },
-    ".css-i4bv87-MuiSvgIcon-root": {
-        color: "white"
+    "&:hover fieldset": {
+      borderColor: "white",
     },
-    ".css-ptiqhd-MuiSvgIcon-root": {
-        color: "white"
+    "&.Mui-focused fieldset": {
+      borderColor: "white",
     },
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'white',
-        },
-        '&:hover fieldset': {
-            borderColor: 'white',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: 'white',
-        },
-        "MuiInputBase-colorPrimary": {
-            color: "white"
-        },
-
-    },
-    ".MuiInputBase-input": {
-        color: "white"
-    },
-    ".MuiSelect-select": {
-        color: "white"
-    },
-    ".MuiFormHelperText-root": {
-        color: "white"
-    },
-    ".MuiSelect-icon": {
-        color: "red"
-    }
+  },
+  "& .MuiInputBase-input": {
+    color: "white",
+  },
+  "& .MuiFormHelperText-root": {
+    color: "white",
+  },
+  "& .MuiAutocomplete-clearIndicator": {
+    color: "white",
+  },
+  "& .MuiAutocomplete-popupIndicator": {
+    color: "white", // ✅ This controls the dropdown arrow color
+  },
 });
 
-
 const Form = (props) => {
-
-    console.log(props.ratesFinal)
-
-    const arr = []
-    Object.keys(props.ratesFinal).forEach((data) => {
-
-        arr.push({
-            value: data,
-            label: data
-        })
-
-    })
-
-    console.log(arr)
-
-    const sortedByKeyDescending = arr.sort((a, b) => {
-        if (a.value < b.value) {
-            return -1;
-        }
-        if (a.value > b.value) {
-            return 1;
-        }
-        return 0;
+  const arr = [];
+  Object.keys(props.ratesFinal).forEach((data) => {
+    arr.push({
+      value: data,
+      label: data,
     });
-    console.log(sortedByKeyDescending)
+  });
 
-    const handleChange1 = (event) => {
-        props.setCurr1(event.target.value);
-        props.setFinalResult(0)
-    };
+  const sortedByKeyDescending = arr.sort((a, b) => {
+    if (a.value < b.value) {
+      return -1;
+    }
+    if (a.value > b.value) {
+      return 1;
+    }
+    return 0;
+  });
 
-    const handleChange2 = (event) => {
-        props.setCurr2(event.target.value);
-        props.setFinalResult(0)
-    };
+  const [cross1, setCross1] = useState(false);
+  const handleCross1Click = (val) => {
+    setCross1(val);
+  };
 
-    return (
-        <div>
-      <Box sx={{ flexGrow: 1 }} style={{ marginTop: "5rem" }}>
-        <Grid container spacing={2}>
-          <Grid xs={3}></Grid>
-          <Grid xs={6}>
-            <Grid container spacing={2}>
-              <Grid xs={6}>
-                <Autocomplete
-                  fullWidth
-                  options={sortedByKeyDescending}
-                  getOptionLabel={(option) => option.label}
-                  renderInput={(params) => (
-                    <CustomTextfield
-                      {...params}
-                      InputLabelProps={{
-                        style: { color: 'white' },
-                      }}
-                      label="FROM"
-                      helperText="Please select a currency"
-                    />
-                  )}
-                  value={sortedByKeyDescending.find((option) => option.value === props.curr1) || null}
-                  onChange={(event, newValue) => {
-                    if (newValue) {
-                      props.setCurr1(newValue.value);
-                      props.setFinalResult(0);
+  const [cross2, setCross2] = useState(false);
+  const handleCross2Click = (val) => {
+    setCross2(val);
+  };
+
+  return (
+    <div id="parentDiv">
+      <Box id="outerBox" sm={{ flexGrow: 1 }} style={{ marginTop: "5rem" }}>
+        <Grid
+          id="innerGrid1"
+          container
+          spacing={2}
+          style={{ width: "100%", margin: 0 }}
+          justifyContent="center"
+        >
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{
+              display: { xs: "column", sm: "flex" },
+              justifyContent: "right",
+              padding: "1rem",
+            }}
+          >
+            <Autocomplete
+              fullWidth
+              options={sortedByKeyDescending}
+              getOptionLabel={(option) => option.label}
+              sx={{
+                width: { xs: "100%", sm: "50%" },
+                flexGrow: { xs: 1, sm: 0 },
+              }}
+              renderInput={(params) => {
+                const selectedOption = sortedByKeyDescending.find(
+                  (option) => option.value === props.curr1
+                );
+                return (
+                  <CustomTextfield
+                    {...params}
+                    InputLabelProps={{
+                      style: { color: "white" },
+                    }}
+                    label="FROM"
+                    helperText={
+                      !cross1 && selectedOption
+                        ? selectedOption.label
+                        : "Please select a currency"
                     }
-                  }}
-                />
-              </Grid>
-              <Grid xs={6}>
-                <Autocomplete
-                  fullWidth
-                  options={sortedByKeyDescending}
-                  getOptionLabel={(option) => option.label}
-                  renderInput={(params) => (
-                    <CustomTextfield
-                      {...params}
-                      style={{ marginLeft: "2rem" }}
-                      InputLabelProps={{
-                        style: { color: 'white' },
-                      }}
-                      label="TO"
-                      helperText="Please select a currency"
-                    />
-                  )}
-                  value={sortedByKeyDescending.find((option) => option.value === props.curr2) || null}
-                  onChange={(event, newValue) => {
-                    if (newValue) {
-                      props.setCurr2(newValue.value);
-                      props.setFinalResult(0);
-                    }
-                  }}
-                />
-              </Grid>
-            </Grid>
+                  />
+                );
+              }}
+              value={(() => {
+                const match = sortedByKeyDescending.find(
+                  (option) => option.value === props.curr1
+                );
+                return match || null;
+              })()}
+              onChange={(event, newValue) => {
+                if (newValue) {
+                  handleCross1Click(false);
+                  props.setCurr1(newValue.value);
+                  props.setFinalResult(0);
+                } else {
+                  handleCross1Click(true);
+                  props.setCurr1("");
+                }
+              }}
+            />
           </Grid>
-          <Grid xs={3}></Grid>
+
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{
+              display: { xs: "column", sm: "flex" },
+              justifyContent: "left",
+              padding: "1rem",
+            }}
+          >
+            <Autocomplete
+              fullWidth
+              options={sortedByKeyDescending}
+              getOptionLabel={(option) => option.label}
+              sx={{
+                width: { xs: "100%", sm: "50%" },
+                flexGrow: { xs: 1, sm: 0 },
+              }}
+              renderInput={(params) => {
+                const selectedOption = sortedByKeyDescending.find(
+                  (option) => option.value === props.curr2
+                );
+                return (
+                  <CustomTextfield
+                    {...params}
+                    InputLabelProps={{
+                      style: { color: "white" },
+                    }}
+                    label="TO"
+                    helperText={
+                      !cross2 && selectedOption
+                        ? selectedOption.label
+                        : "Please select a currency"
+                    }
+                  />
+                );
+              }}
+              value={(() => {
+                const match = sortedByKeyDescending.find(
+                  (option) => option.value === props.curr2
+                );
+                return match || null;
+              })()}
+              onChange={(event, newValue) => {
+                if (newValue) {
+                  props.setCurr2(newValue.value);
+                  props.setFinalResult(0);
+                  handleCross2Click(false);
+                } else {
+                  handleCross2Click(true);
+                  props.setCurr2("");
+                }
+              }}
+            />
+          </Grid>
         </Grid>
       </Box>
     </div>
-    )
-}
+  );
+};
 
-export default Form
+export default Form;

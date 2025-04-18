@@ -5,6 +5,7 @@
     /* Initially set opacity to 0 for the fade-in effect */
     animation: fadeInAnimation 1s ease-in-out forwards;
     /* Apply fade-in animation */
+    margin-top: 2.2rem;
 }
 
 .output-text {
